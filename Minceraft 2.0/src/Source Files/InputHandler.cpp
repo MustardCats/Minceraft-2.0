@@ -50,6 +50,12 @@ namespace InputHandler {
 		if (Input::keyPress(GLFW_KEY_F)) {
 			std::cout << player->getPos().x << " " << player->getPos().y << " " << player->getPos().z << "\n";
 		}
+		if (Input::keyHold(GLFW_KEY_C)) {
+			Camera::setFOV(30.0f);
+		}
+		else {
+			Camera::setFOV(90.0f);
+		}
 	}
 
 	void updateCamera() {

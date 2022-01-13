@@ -71,6 +71,7 @@ namespace Renderer {
 
 		std::string world_atlas_path = "Assets/Textures/epic_win.png";
 		world_atlas = new TextureAtlas(world_atlas_path);
+		world_atlas->addTexture("Assets/Textures/epic_win.png");
 
 		return true;
 	}

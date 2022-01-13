@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Header Files\BlockTypes.h" />
     <ClInclude Include="src\Header Files\Camera.h" />
     <ClInclude Include="src\Header Files\ChunkMesh.h" />
     <ClInclude Include="src\Header Files\Entity.h" />
@@ -32,11 +33,11 @@
     <ClInclude Include="src\Header Files\Shader.h" />
     <ClInclude Include="src\Header Files\ChunkManager.h" />
     <ClInclude Include="src\Header Files\TextureAtlas.h" />
-    <ClInclude Include="src\Header Files\UIManager.h" />
     <ClInclude Include="src\Header Files\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vender\glad.c" />
+    <ClCompile Include="src\Source Files\BlockTypes.cpp" />
     <ClCompile Include="src\Source Files\Camera.cpp" />
     <ClCompile Include="src\Source Files\ChunkManager.cpp" />
     <ClCompile Include="src\Source Files\Entity.cpp" />
@@ -46,7 +47,6 @@
     <ClCompile Include="src\Source Files\Player.cpp" />
     <ClCompile Include="src\Source Files\Renderer.cpp" />
     <ClCompile Include="src\Source Files\TextureAtlas.cpp" />
-    <ClCompile Include="src\Source Files\UIManager.cpp" />
     <ClCompile Include="src\Source Files\Window.cpp" />
     <ClCompile Include="src\Source Files\Shader.cpp" />
     <ClCompile Include="src\Source Files\Game.cpp" />

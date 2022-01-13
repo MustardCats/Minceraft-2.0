@@ -7,7 +7,7 @@
 #include "Camera.h"
 #include "InputHandler.h"
 #include "Player.h"
-#include "UIManager.h"
+#include "BlockTypes.h"
 
 namespace Game {
 	bool init();

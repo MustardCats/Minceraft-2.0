@@ -45,8 +45,8 @@ namespace Game {
 		if (!Camera::init()) {
 			printf("ERROR: The camera couldn't be initialized!");
 		}
-		if (!UIManager::init()) {
-			printf("ERROR: The UI manager couldn't be initialized!");
+		if (!BlockTypes::init("Assets/")) {
+			printf("ERROR: The block types couldn't be initialized!");
 		}
 		players.push_back(new Player());
 		InputHandler::setPlayer(players[0]);

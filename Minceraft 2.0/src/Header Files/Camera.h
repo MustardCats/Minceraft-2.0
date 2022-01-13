@@ -22,4 +22,5 @@ namespace Camera {
 	void addYaw(float distance);
 	void addPitch(float distance);
 	void setPosition(glm::vec3 position);
+	void setFOV(float fov);
 }

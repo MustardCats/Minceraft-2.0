@@ -22,8 +22,8 @@
     <ClInclude Include="src\Header Files\Entity.h" />
     <ClInclude Include="src\Header Files\Player.h" />
     <ClInclude Include="src\Header Files\InputHandler.h" />
-    <ClInclude Include="src\Header Files\UIManager.h" />
     <ClInclude Include="src\Header Files\ChunkMesh.h" />
+    <ClInclude Include="src\Header Files\BlockTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source Files\Main.cpp" />
@@ -40,6 +40,6 @@
     <ClCompile Include="src\Source Files\InputHandler.cpp" />
     <ClCompile Include="src\Source Files\Entity.cpp" />
     <ClCompile Include="src\Source Files\ChunkManager.cpp" />
-    <ClCompile Include="src\Source Files\UIManager.cpp" />
+    <ClCompile Include="src\Source Files\BlockTypes.cpp" />
   </ItemGroup>
 </Project>

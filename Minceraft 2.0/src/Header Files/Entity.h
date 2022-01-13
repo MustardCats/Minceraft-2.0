@@ -14,4 +14,5 @@ protected:
 	glm::vec3 pos;;
 	glm::vec3 size;
 	glm::vec3 velocity;
+	glm::vec3 direction;
 };

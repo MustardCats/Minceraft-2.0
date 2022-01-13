@@ -113,4 +113,8 @@ namespace Camera {
 	void setPosition(glm::vec3 position) {
 		pos = position;
 	}
+
+	void setFOV(float fov) {
+		Camera::fov = fov;
+	}
 }

@@ -2,8 +2,9 @@
 
 TextureAtlas::TextureAtlas() {
     tile_size = 20;
-    dimensions = glm::vec2(0, 0);
+    dimensions = glm::ivec2(0, 0);
     uv_size = glm::vec2(0, 0);
+    cur_pos = glm::ivec2(0, 0);
 }
 
 TextureAtlas::TextureAtlas(std::string file_name) {
@@ -34,7 +35,7 @@ void TextureAtlas::Load(std::string file_name) {
         GL_RGBA,
         GL_UNSIGNED_BYTE,
         image.getPixelsPtr());
-
+    
     dimensions.x = image.getSize().x;
     dimensions.y = image.getSize().y;
 
@@ -44,6 +45,36 @@ void TextureAtlas::Load(std::string file_name) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+glm::ivec2 TextureAtlas::addTexture(std::string file_name) {
+    sf::Image image;
+    if (!image.loadFromFile(file_name)) {
+        std::cout << "Error: Couldn't load image " << file_name << "\n";
+        return glm::ivec2(0, 0);
+    }
+
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+
+    glTexSubImage2D(GL_TEXTURE_2D,
+        0,
+        cur_pos.x,
+        cur_pos.y,
+        image.getSize().x,
+        image.getSize().y,
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        image.getPixelsPtr());
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    std::cout << glGetError() << "\n";
+
+    glm::vec2 old_pos = cur_pos;
+    glm::vec2 pos = GetNextPosition(cur_pos);
+    cur_pos = pos;
+
+    return old_pos;
 }
 
 int TextureAtlas::GetTileSize() {
@@ -76,13 +107,17 @@ void TextureAtlas::Use() {
     glBindTexture(GL_TEXTURE_2D, texture_id);
 }
 
-glm::vec2 TextureAtlas::GetNextPosition(glm::vec2 cur_pos) {
-    glm::vec2 new_pos = cur_pos;
+glm::ivec2 TextureAtlas::GetNextPosition(glm::ivec2 pos) {
+    glm::vec2 new_pos = pos;
     new_pos.x += texture_size;
-    if (new_pos.x >= 1024) {
+    if (new_pos.x >= dimensions.x) {
         new_pos.x = 0;
         new_pos.y += texture_size;
     }
+    if (new_pos.y >= dimensions.y) {
+        new_pos.y = 0;
+    }
+
     return new_pos;
 }
 
