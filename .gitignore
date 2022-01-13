@@ -1,0 +1,8 @@
+*.dll
+*.lib
+.git/
+.vs/
+bin/
+Debug/
+"Minceraft 2.0/Debug/"
+vender/
