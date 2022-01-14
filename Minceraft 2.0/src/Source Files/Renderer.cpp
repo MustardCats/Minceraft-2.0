@@ -7,8 +7,6 @@ namespace Renderer {
 
 	static Mesh* test = nullptr;
 
-	static TextureAtlas* world_atlas = nullptr;
-
 	bool init() {
 		std::string vert_path = "Assets/Shaders/BasicShader.vert";
 		std::string frag_path = "Assets/Shaders/BasicShader.frag";
@@ -20,58 +18,55 @@ namespace Renderer {
 
 		test = new Mesh();
 		//test->AddRect(glm::vec2(-0.5), glm::vec2(1), glm::vec2(0.0), glm::vec2(1.0));
+		std::array<std::array<glm::vec2, 2>, 6> block_uvs = BlockTypes::getBlockUVs(4);
 		float vertices[] = {
 			// front
-			-0.5, -0.5, -0.5, 0.0, 1.0, // bottom left
-			0.5, 0.5, -0.5, 1.0, 0.0, // top right
-			-0.5, 0.5, -0.5, 0.0, 0.0, // top left
-			-0.5, -0.5, -0.5, 0.0, 1.0, // bottom left
-			0.5, -0.5, -0.5, 1.0, 1.0, // bottom right
-			0.5, 0.5, -0.5, 1.0, 0.0, // top right
+			-0.5, -0.5, -0.5, block_uvs[0][0].x, block_uvs[0][1].y, // bottom left
+			0.5, 0.5, -0.5, block_uvs[0][1].x, block_uvs[0][0].y, // top right
+			-0.5, 0.5, -0.5, block_uvs[0][0].x, block_uvs[0][0].y, // top left
+			-0.5, -0.5, -0.5, block_uvs[0][0].x, block_uvs[0][1].y, // bottom left
+			0.5, -0.5, -0.5, block_uvs[0][1].x, block_uvs[0][1].y, // bottom right
+			0.5, 0.5, -0.5, block_uvs[0][1].x, block_uvs[0][0].y, // top right
 			// back
-			0.5, -0.5, 0.5, 0.0, 1.0,
-			-0.5, 0.5, 0.5, 1.0, 0.0,
-			0.5, 0.5, 0.5, 0.0, 0.0,
-			0.5, -0.5, 0.5, 0.0, 1.0,
-			-0.5, -0.5, 0.5, 1.0, 1.0,
-			-0.5, 0.5, 0.5, 1.0, 0.0,
+			0.5, -0.5, 0.5, block_uvs[1][0].x, block_uvs[1][1].y,
+			-0.5, 0.5, 0.5, block_uvs[1][1].x, block_uvs[1][0].y,
+			0.5, 0.5, 0.5, block_uvs[1][0].x, block_uvs[1][0].y,
+			0.5, -0.5, 0.5, block_uvs[1][0].x, block_uvs[1][1].y,
+			-0.5, -0.5, 0.5, block_uvs[1][1].x, block_uvs[1][1].y,
+			-0.5, 0.5, 0.5, block_uvs[1][1].x, block_uvs[1][0].y,
 			// left
-			-0.5, -0.5, 0.5, 0.0, 1.0,
-			-0.5, 0.5, -0.5, 1.0, 0.0,
-			-0.5, 0.5, 0.5, 0.0, 0.0,
-			-0.5, -0.5, 0.5, 0.0, 1.0,
-			-0.5, -0.5, -0.5, 1.0, 1.0,
-			-0.5, 0.5, -0.5, 1.0, 0.0,
+			-0.5, -0.5, 0.5, block_uvs[2][0].x, block_uvs[2][1].y,
+			-0.5, 0.5, -0.5, block_uvs[2][1].x, block_uvs[2][0].y,
+			-0.5, 0.5, 0.5, block_uvs[2][0].x, block_uvs[2][0].y,
+			-0.5, -0.5, 0.5, block_uvs[2][0].x, block_uvs[2][1].y,
+			-0.5, -0.5, -0.5, block_uvs[2][1].x, block_uvs[2][1].y,
+			-0.5, 0.5, -0.5, block_uvs[2][1].x, block_uvs[2][0].y,
 			// right
-			0.5, -0.5, -0.5, 0.0, 1.0,
-			0.5, 0.5, 0.5, 1.0, 0.0,
-			0.5, 0.5, -0.5, 0.0, 0.0,
-			0.5, -0.5, -0.5, 0.0, 1.0,
-			0.5, -0.5, 0.5, 1.0, 1.0,
-			0.5, 0.5, 0.5, 1.0, 0.0,
+			0.5, -0.5, -0.5, block_uvs[3][0].x, block_uvs[3][1].y,
+			0.5, 0.5, 0.5, block_uvs[3][1].x, block_uvs[3][0].y,
+			0.5, 0.5, -0.5, block_uvs[3][0].x, block_uvs[3][0].y,
+			0.5, -0.5, -0.5, block_uvs[3][0].x, block_uvs[3][1].y,
+			0.5, -0.5, 0.5, block_uvs[3][1].x, block_uvs[3][1].y,
+			0.5, 0.5, 0.5, block_uvs[3][1].x, block_uvs[3][0].y,
 			// top
-			-0.5, 0.5, -0.5, 0.0, 1.0,
-			0.5, 0.5, 0.5, 1.0, 0.0,
-			-0.5, 0.5, 0.5, 0.0, 0.0,
-			-0.5, 0.5, -0.5, 0.0, 1.0,
-			0.5, 0.5, -0.5, 1.0, 1.0,
-			0.5, 0.5, 0.5, 1.0, 0.0,
+			-0.5, 0.5, -0.5, block_uvs[4][0].x, block_uvs[4][1].y,
+			0.5, 0.5, 0.5, block_uvs[4][1].x, block_uvs[4][0].y,
+			-0.5, 0.5, 0.5, block_uvs[4][0].x, block_uvs[4][0].y,
+			-0.5, 0.5, -0.5, block_uvs[4][0].x, block_uvs[4][1].y,
+			0.5, 0.5, -0.5, block_uvs[4][1].x, block_uvs[4][1].y,
+			0.5, 0.5, 0.5, block_uvs[4][1].x, block_uvs[4][0].y,
 			// bottom
-			-0.5, -0.5, 0.5, 0.0, 1.0,
-			0.5, -0.5, -0.5, 1.0, 0.0,
-			-0.5, -0.5, -0.5, 0.0, 0.0,
-			-0.5, -0.5, 0.5, 0.0, 1.0,
-			0.5, -0.5, 0.5, 1.0, 1.0,
-			0.5, -0.5, -0.5, 1.0, 0.0
+			-0.5, -0.5, 0.5, block_uvs[5][0].x, block_uvs[5][1].y,
+			0.5, -0.5, -0.5, block_uvs[5][1].x, block_uvs[5][0].y,
+			-0.5, -0.5, -0.5, block_uvs[5][0].x, block_uvs[5][0].y,
+			-0.5, -0.5, 0.5, block_uvs[5][0].x, block_uvs[5][1].y,
+			0.5, -0.5, 0.5, block_uvs[5][1].x, block_uvs[5][1].y,
+			0.5, -0.5, -0.5, block_uvs[5][1].x, block_uvs[5][0].y
 		};
 		test->GetMesh()->insert(test->GetMesh()->end(), std::begin(vertices), std::end(vertices));
 		//test->GetMesh()->insert(test->GetMesh()->end(), std::begin(mesh), std::end(mesh));
 
 		test->GenVAO();
-
-		std::string world_atlas_path = "Assets/Textures/epic_win.png";
-		world_atlas = new TextureAtlas(world_atlas_path);
-		world_atlas->addTexture("Assets/Textures/epic_win.png");
 
 		return true;
 	}
@@ -82,7 +77,7 @@ namespace Renderer {
 		glm::mat4 matrix = Camera::getMatrix();
 		world_shader->setMat4("MVP", matrix);
 		world_shader->setVec3("color", glm::vec3(1.0, 1.0, 1.0));
-		world_atlas->Use();
+		BlockTypes::getAtlas()->Use();
 
 		test->Render();
 		return;

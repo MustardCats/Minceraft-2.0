@@ -8,10 +8,14 @@ namespace BlockTypes {
 	static std::unordered_map<std::string, int> name_to_id;
 	static std::vector<BlockAttribute> block_attributes;
 	static int max_blocks = 0;
+	static TextureAtlas* atlas;
 
 	bool loadAttributes() {
 		std::ifstream file = std::ifstream();
 		file.open(asset_directory + "/BlockTypes/attributes.txt");
+		if (!file.good()) {
+			printf("ERROR: Couldn't open block attributes file!\n");
+		}
 		bool finished = true;
 		std::string next_tile;
 		std::string line;
@@ -55,33 +59,77 @@ namespace BlockTypes {
 			}
 		}
 		file.close();
-
+		
 		return true;
 	}
 
 	bool loadUVFaces() {
+		std::ifstream file = std::ifstream();
+		std::string block_directory = asset_directory + "Textures/Blocks/";
+		file.open(block_directory + "list.txt");
+		if (!file.good()) {
+			printf("ERROR: Couldn't open block texture list!\n");
+			return false;
+		}
+		std::string line;
+		while (std::getline(file, line)) {
+			glm::vec2 pos = atlas->addTexture(block_directory + line + ".png");
+			glm::vec2 uv_pos = pos / atlas->GetSize();
+			std::array<glm::vec2, 2> uv = { uv_pos, uv_pos + atlas->GetUVSize() };
+			face_uvs.emplace(std::pair(line, uv));
+		}
+		file.close();
 
 		return true;
 	}
 
 	bool loadBlockUVMappings() {
+		// block uvs are added out of order
+		for (int i = 0; i < max_blocks; i++) {
+			block_uvs.push_back(std::array<std::array<glm::vec2, 2>, 6>());
+		}
+		std::ifstream file = std::ifstream();
+		std::string file_name = asset_directory + "BlockTypes/faces.txt";
+		file.open(file_name);
+		if (!file.good()) {
+			printf("ERROR: Couldn't open face to block file!\n");
+			return false;
+		}
+		bool finished = true;
+		std::string next_block;
+		std::string line;
+		int index = 0;
+		while (std::getline(file, line)) {
+			if (line == ";") {
+				finished = true;
+				continue;
+			}
+			if (finished) {
+				finished = false;
+				next_block = line;
+				index = 0;
+				continue;
+			}
+			block_uvs[name_to_id[next_block]].at(index) = face_uvs[line];
+			index++;
+		}
 
 		return true;
 	}
-
+	
 	bool init(std::string asset_directory) {
 		BlockTypes::asset_directory = asset_directory;
+		atlas = new TextureAtlas();
 		// load block attributes
 		if (!loadAttributes()) {
 			return false;
 		}
-		// TODO: replace
 		// load uv faces
 		if (!loadUVFaces()) {
 			return false;
 		}
 		// load mappings of faces to blocks
-		if (!loadBlockUVMappings) {
+		if (!loadBlockUVMappings()) {
 			return false;
 		}
 
@@ -90,5 +138,9 @@ namespace BlockTypes {
 
 	std::array<std::array<glm::vec2, 2>, 6> getBlockUVs(int id) {
 		return block_uvs[id];
+	}
+
+	TextureAtlas* getAtlas() {
+		return atlas;
 	}
 }

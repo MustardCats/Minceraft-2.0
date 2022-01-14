@@ -2,14 +2,34 @@
 
 TextureAtlas::TextureAtlas() {
     tile_size = 20;
-    dimensions = glm::ivec2(0, 0);
+    dimensions = glm::ivec2(1024, 1024);
     uv_size = glm::vec2(0, 0);
     cur_pos = glm::ivec2(0, 0);
+
+    glGenTextures(1, &texture_id);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+    //glGenerateMipmap(GL_TEXTURE_2D);
+
+    glTexImage2D(GL_TEXTURE_2D,
+        0,
+        GL_RGBA,
+        dimensions.x,
+        dimensions.y,
+        0,
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        NULL);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 TextureAtlas::TextureAtlas(std::string file_name) {
-    Load(file_name);
-    tile_size = 20;
+    
 }
 /*
 * Hopsoncraft image loading used here, got the idea
@@ -22,29 +42,6 @@ void TextureAtlas::Load(std::string file_name) {
         std::cout << "Error: Couldn't load image " << file_name << "\n";
         return;
     }
-
-    glGenTextures(1, &texture_id);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-    //glGenerateMipmap(GL_TEXTURE_2D);
-    glTexImage2D(GL_TEXTURE_2D,
-        0,
-        GL_RGBA,
-        image.getSize().x,
-        image.getSize().y,
-        0,
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        image.getPixelsPtr());
-    
-    dimensions.x = image.getSize().x;
-    dimensions.y = image.getSize().y;
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 glm::ivec2 TextureAtlas::addTexture(std::string file_name) {
@@ -53,7 +50,7 @@ glm::ivec2 TextureAtlas::addTexture(std::string file_name) {
         std::cout << "Error: Couldn't load image " << file_name << "\n";
         return glm::ivec2(0, 0);
     }
-
+    SetTextureSize(image.getSize().x);
     glBindTexture(GL_TEXTURE_2D, texture_id);
 
     glTexSubImage2D(GL_TEXTURE_2D,
@@ -68,10 +65,8 @@ glm::ivec2 TextureAtlas::addTexture(std::string file_name) {
     
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    std::cout << glGetError() << "\n";
-
-    glm::vec2 old_pos = cur_pos;
-    glm::vec2 pos = GetNextPosition(cur_pos);
+    glm::ivec2 old_pos = cur_pos;
+    glm::ivec2 pos = GetNextPosition(cur_pos);
     cur_pos = pos;
 
     return old_pos;

@@ -34,19 +34,19 @@ namespace Game {
 
 	bool loadResources() {
 		if (!Window::init()) {
-			printf("ERROR: The window couldn't be initialized!");
-		}
-		if (!Input::init()) {
-			printf("ERROR: The input couldn't be initialized!");
-		}
-		if (!Renderer::init()) {
-			printf("ERROR: The renderer couldn't be initialized!");
-		}
-		if (!Camera::init()) {
-			printf("ERROR: The camera couldn't be initialized!");
+			printf("ERROR: The window couldn't be initialized!\n");
 		}
 		if (!BlockTypes::init("Assets/")) {
-			printf("ERROR: The block types couldn't be initialized!");
+			printf("ERROR: The block types couldn't be initialized!\n");
+		}
+		if (!Input::init()) {
+			printf("ERROR: The input couldn't be initialized!\n");
+		}
+		if (!Renderer::init()) {
+			printf("ERROR: The renderer couldn't be initialized!\n");
+		}
+		if (!Camera::init()) {
+			printf("ERROR: The camera couldn't be initialized!\n");
 		}
 		players.push_back(new Player());
 		InputHandler::setPlayer(players[0]);

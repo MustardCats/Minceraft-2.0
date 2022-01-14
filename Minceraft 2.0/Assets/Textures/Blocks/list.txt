@@ -1,0 +1,11 @@
+dirt
+grass
+grass_top
+leaf
+pickaxe
+sand
+sandstone_side
+sandstone_top
+stone
+water
+wood

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Include.h"
+#include "TextureAtlas.h"
 
 namespace BlockTypes {
 
@@ -19,4 +20,5 @@ namespace BlockTypes {
 
 	bool init(std::string asset_directory);
 	std::array<std::array<glm::vec2, 2>, 6> getBlockUVs(int id);
+	TextureAtlas* getAtlas();
 }
