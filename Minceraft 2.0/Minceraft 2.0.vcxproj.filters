@@ -41,5 +41,6 @@
     <ClCompile Include="src\Source Files\Entity.cpp" />
     <ClCompile Include="src\Source Files\ChunkManager.cpp" />
     <ClCompile Include="src\Source Files\BlockTypes.cpp" />
+    <ClCompile Include="src\Source Files\ChunkMesh.cpp" />
   </ItemGroup>
 </Project>

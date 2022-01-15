@@ -22,12 +22,13 @@ namespace Window {
 
 		glEnable(GL_BLEND);
 		glEnable(GL_CULL_FACE);
-		//glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glViewport(0, 0, 600, 400);
 		glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		//glClearDepth(1.0f);
+		//glDepthMask(GL_FALSE);
+		
 
 		lockMouse();
 
@@ -47,7 +48,8 @@ namespace Window {
 			return false;
 		}
 		glfwSwapBuffers(window);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDepthFunc(GL_LEQUAL);
 
 		return true;
 	}

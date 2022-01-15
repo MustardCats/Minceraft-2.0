@@ -40,6 +40,7 @@
     <ClCompile Include="src\Source Files\BlockTypes.cpp" />
     <ClCompile Include="src\Source Files\Camera.cpp" />
     <ClCompile Include="src\Source Files\ChunkManager.cpp" />
+    <ClCompile Include="src\Source Files\ChunkMesh.cpp" />
     <ClCompile Include="src\Source Files\Entity.cpp" />
     <ClCompile Include="src\Source Files\Input.cpp" />
     <ClCompile Include="src\Source Files\InputHandler.cpp" />

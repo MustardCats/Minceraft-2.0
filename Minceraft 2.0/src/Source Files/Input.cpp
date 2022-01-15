@@ -6,8 +6,8 @@ namespace Input {
 
 	static bool key_states[348];
 	static bool prev_key_states[348];
-	static bool mouse_states[3];
-	static bool prev_mouse_states[3];
+	static bool mouse_states[5];
+	static bool prev_mouse_states[5];
 	static glm::dvec2 scroll;
 	static int mouse_x;
 	static int mouse_y;

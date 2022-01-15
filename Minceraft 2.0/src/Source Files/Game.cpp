@@ -48,6 +48,9 @@ namespace Game {
 		if (!Camera::init()) {
 			printf("ERROR: The camera couldn't be initialized!\n");
 		}
+		if (!ChunkManager::init()) {
+			printf("ERROR: The chunk manager couldn't be initialized!\n");
+		}
 		players.push_back(new Player());
 		InputHandler::setPlayer(players[0]);
 
@@ -62,6 +65,17 @@ namespace Game {
 			return false;
 		}
 		InputHandler::update(delta_time);
+
+		for (auto player : players) {
+			ChunkManager::makeChunkNear(player->getPos());
+			ChunkManager::deleteChunks(player->getPos());
+		}
+		ChunkManager::update();
+		Chunk* new_chunk = ChunkManager::getNewChunk();
+		if (new_chunk != nullptr)
+			Renderer::createChunkMesh(new_chunk);
+		if (ChunkManager::containsDeleteChunks())
+			Renderer::removeChunkMesh(ChunkManager::getDeleteChunk());
 
 		Renderer::render();
 

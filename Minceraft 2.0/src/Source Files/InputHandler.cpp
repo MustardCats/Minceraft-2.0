@@ -30,22 +30,22 @@ namespace InputHandler {
 
 	void updatePlayerMovement(double delta_time) {
 		if (Input::keyHold(GLFW_KEY_W)) {
-			movePlayerForward(delta_time, 1.0f);
+			movePlayerForward(delta_time, 5.0f);
 		}
 		if (Input::keyHold(GLFW_KEY_S)) {
-			movePlayerBack(delta_time, 1.0f);
+			movePlayerBack(delta_time, 5.0f);
 		}
 		if (Input::keyHold(GLFW_KEY_A)) {
-			movePlayerLeft(delta_time, 1.0f);
+			movePlayerLeft(delta_time, 5.0f);
 		}
 		if (Input::keyHold(GLFW_KEY_D)) {
-			movePlayerRight(delta_time, 1.0f);
+			movePlayerRight(delta_time, 5.0f);
 		}
 		if (Input::keyHold(GLFW_KEY_SPACE)) {
-			movePlayerUp(delta_time, 1.0f);
+			movePlayerUp(delta_time, 5.0f);
 		}
 		if (Input::keyHold(GLFW_KEY_LEFT_SHIFT)) {
-			movePlayerDown(delta_time, 1.0f);
+			movePlayerDown(delta_time, 5.0f);
 		}
 		if (Input::keyPress(GLFW_KEY_F)) {
 			std::cout << player->getPos().x << " " << player->getPos().y << " " << player->getPos().z << "\n";
@@ -55,6 +55,9 @@ namespace InputHandler {
 		}
 		else {
 			Camera::setFOV(90.0f);
+		}
+		if (Input::keyPress(GLFW_KEY_P)) {
+			std::cout << player->getPos().x << " " << player->getPos().y << " " << player->getPos().z << "\n";
 		}
 	}
 
