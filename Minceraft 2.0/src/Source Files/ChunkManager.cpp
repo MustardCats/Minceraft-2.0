@@ -78,9 +78,9 @@ namespace ChunkManager {
 				chunks.at(i)->y >(chunk_pos.y + (range_y / 2)) ||
 				chunks.at(i)->z < (chunk_pos.z - (range_z / 2)) ||
 				chunks.at(i)->z >(chunk_pos.z + (range_z / 2))) {
+				delete_chunks.push_back(glm::ivec3(chunks.at(i)->x, chunks.at(i)->y, chunks.at(i)->z));
 				delete chunks.at(i);
 				chunks.erase(chunks.begin() + i);
-				delete_chunks.push_back(glm::ivec3(chunks.at(i)->x, chunks.at(i)->y, chunks.at(i)->z));
 				return;
 			}
 		}
