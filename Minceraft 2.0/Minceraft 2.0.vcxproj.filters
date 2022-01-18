@@ -24,6 +24,7 @@
     <ClInclude Include="src\Header Files\InputHandler.h" />
     <ClInclude Include="src\Header Files\ChunkMesh.h" />
     <ClInclude Include="src\Header Files\BlockTypes.h" />
+    <ClInclude Include="src\Header Files\ChunkRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source Files\Main.cpp" />
@@ -42,5 +43,6 @@
     <ClCompile Include="src\Source Files\ChunkManager.cpp" />
     <ClCompile Include="src\Source Files\BlockTypes.cpp" />
     <ClCompile Include="src\Source Files\ChunkMesh.cpp" />
+    <ClCompile Include="src\Source Files\ChunkRenderer.cpp" />
   </ItemGroup>
 </Project>

@@ -2,9 +2,9 @@
 out vec4 FragColor;
 
 in vec2 TexCoord;
+in vec3 color;
 
 uniform sampler2D ourTexture;
-uniform vec3 color;
 
 void main() {
     vec4 tile_color = vec4(color, 1.0);

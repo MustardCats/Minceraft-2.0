@@ -70,13 +70,17 @@ namespace Game {
 			ChunkManager::makeChunkNear(player->getPos());
 			ChunkManager::deleteChunks(player->getPos());
 		}
-		ChunkManager::update();
-		Chunk* new_chunk = ChunkManager::getNewChunk();
-		if (new_chunk != nullptr)
-			Renderer::createChunkMesh(new_chunk);
-		if (ChunkManager::containsDeleteChunks())
-			Renderer::removeChunkMesh(ChunkManager::getDeleteChunk());
 
+		ChunkManager::update();
+		while (ChunkManager::containsDeleteChunks())
+			ChunkRenderer::removeMesh(ChunkManager::getDeleteChunk());
+		
+		Chunk* new_chunk = ChunkManager::getNewChunk();
+		
+		if (new_chunk != nullptr)
+			ChunkRenderer::createMesh(new_chunk);
+		
+		ChunkRenderer::update();
 		Renderer::render();
 
 		return true;

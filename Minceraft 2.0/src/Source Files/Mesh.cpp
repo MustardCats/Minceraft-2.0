@@ -60,7 +60,5 @@ void Mesh::AddRect(glm::vec2 pos, glm::vec2 size, glm::vec2 uv_pos, glm::vec2 uv
 }
 
 void Mesh::Clear() {
-	glDeleteBuffers(1, &VBO);
-	glDeleteVertexArrays(1, &VAO);
 	mesh.clear();
 }

@@ -6,8 +6,7 @@ namespace Renderer {
 	static Shader* world_shader = nullptr;
 
 	static Mesh* test = nullptr;
-	static std::vector<ChunkMesh*> chunk_meshes;
-
+	
 	bool init() {
 		std::string vert_path = "Assets/Shaders/BasicShader.vert";
 		std::string frag_path = "Assets/Shaders/BasicShader.frag";
@@ -78,13 +77,19 @@ namespace Renderer {
 		
 		glm::mat4 matrix = Camera::getMatrix();
 		world_shader->setMat4("MVP", matrix);
-		world_shader->setVec3("color", glm::vec3(1.0, 1.0, 1.0));
+		
+		static float color = 0.0f;
+		color += 0.001f;
+		if (color >= 0.7f) {
+			color = 0.0f;
+		}
+
+		world_shader->setVec3("shadeColor", glm::vec3(1.0f, 1.0f, 1.0f));
 		BlockTypes::getAtlas()->Use();
 
 		test->Render();
-		for (auto mesh : chunk_meshes) {
-			mesh->render();
-		}
+		ChunkRenderer::render();
+
 		glDisable(GL_DEPTH_TEST);
 		basic_shader->use();
 		glm::mat4 ortho = glm::ortho(0.0f, (float)(Window::getSize().x), (float)(Window::getSize().y), 0.0f);
@@ -93,25 +98,5 @@ namespace Renderer {
 		cat.AddRect(glm::vec2(0.0f, 0.0f), glm::vec2(300.0f, 300.0f), glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 1.0f));
 		cat.GenVAO();
 		cat.Render();
-	}
-
-	void createChunkMesh(Chunk* chunk) {
-		std::cout << "Creating chunk mesh at " << chunk->x << " " << chunk->y << " " << chunk->z << "\n";
-		ChunkMesh* mesh = new ChunkMesh(chunk);
-		mesh->generate();
-		chunk_meshes.push_back(mesh);
-	}
-
-	void removeChunkMesh(glm::ivec3 pos) {
-		std::cout << "Deleting chunk mesh at " << pos.x << " " << pos.y << " " << pos.z << "\n";
-		for (int i = 0; i < chunk_meshes.size(); i++) {
-			if (chunk_meshes[i]->pos().x == pos.x &&
-				chunk_meshes[i]->pos().y == pos.y &&
-				chunk_meshes[i]->pos().z == pos.z) {
-				delete chunk_meshes[i];
-				chunk_meshes.erase(chunk_meshes.begin() + i);
-				return;
-			}
-		}
 	}
 }

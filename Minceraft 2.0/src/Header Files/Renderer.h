@@ -8,10 +8,9 @@
 #include "BlockTypes.h"
 #include "ChunkMesh.h"
 #include "ChunkManager.h"
+#include "ChunkRenderer.h"
 
 namespace Renderer {
 	bool init();
 	void render();
-	void createChunkMesh(Chunk* chunk);
-	void removeChunkMesh(glm::ivec3 pos);
 }

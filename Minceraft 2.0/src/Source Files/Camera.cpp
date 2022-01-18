@@ -22,7 +22,7 @@ namespace Camera {
 	}
 
 	glm::mat4 getProjectionMatrix() {
-		return glm::perspective(glm::radians(fov), (-(float)Window::getSize().x) / ((float)Window::getSize().y), 0.1f, 100.0f);
+		return glm::perspective(glm::radians(fov), (-(float)Window::getSize().x) / ((float)Window::getSize().y), 0.1f, 1000.0f);
 	}
 
 	glm::mat4 getViewMatrix() {

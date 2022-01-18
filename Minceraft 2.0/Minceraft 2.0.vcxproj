@@ -22,6 +22,7 @@
     <ClInclude Include="src\Header Files\BlockTypes.h" />
     <ClInclude Include="src\Header Files\Camera.h" />
     <ClInclude Include="src\Header Files\ChunkMesh.h" />
+    <ClInclude Include="src\Header Files\ChunkRenderer.h" />
     <ClInclude Include="src\Header Files\Entity.h" />
     <ClInclude Include="src\Header Files\Game.h" />
     <ClInclude Include="src\Header Files\Include.h" />
@@ -41,6 +42,7 @@
     <ClCompile Include="src\Source Files\Camera.cpp" />
     <ClCompile Include="src\Source Files\ChunkManager.cpp" />
     <ClCompile Include="src\Source Files\ChunkMesh.cpp" />
+    <ClCompile Include="src\Source Files\ChunkRenderer.cpp" />
     <ClCompile Include="src\Source Files\Entity.cpp" />
     <ClCompile Include="src\Source Files\Input.cpp" />
     <ClCompile Include="src\Source Files\InputHandler.cpp" />

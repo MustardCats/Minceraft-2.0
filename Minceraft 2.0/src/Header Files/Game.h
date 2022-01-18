@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "BlockTypes.h"
 #include "ChunkManager.h"
+#include "ChunkRenderer.h"
 
 namespace Game {
 	bool init();
