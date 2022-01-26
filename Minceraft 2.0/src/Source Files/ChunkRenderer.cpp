@@ -15,7 +15,7 @@ namespace ChunkRenderer {
 			}
 		}
 		frame++;
-		if (frame == 1)
+		if (frame == 2)
 			frame = 0;
 	}
 
@@ -46,6 +46,7 @@ namespace ChunkRenderer {
 
 	void createMesh(Chunk* chunk) {
 		generating_chunk_meshes.push_back(new ChunkMesh(chunk));
+		//return;
 		regenMesh(glm::ivec3(chunk->x - 1, chunk->y, chunk->z));
 		regenMesh(glm::ivec3(chunk->x + 1, chunk->y, chunk->z));
 		regenMesh(glm::ivec3(chunk->x, chunk->y - 1, chunk->z));

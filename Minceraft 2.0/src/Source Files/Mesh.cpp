@@ -10,6 +10,8 @@ Mesh::~Mesh() {
 }
 
 void Mesh::Render() {
+	if (mesh.size() < 1)
+		return;
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, mesh.size() * 0.6f);
 }

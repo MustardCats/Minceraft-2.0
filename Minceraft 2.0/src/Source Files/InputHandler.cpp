@@ -29,23 +29,27 @@ namespace InputHandler {
 	}
 
 	void updatePlayerMovement(double delta_time) {
+		float velocity = 5.0f;
+		if (Input::keyHold(GLFW_KEY_LEFT_CONTROL)) {
+			velocity = 10.0f;
+		}
 		if (Input::keyHold(GLFW_KEY_W)) {
-			movePlayerForward(delta_time, 5.0f);
+			movePlayerForward(delta_time, velocity);
 		}
 		if (Input::keyHold(GLFW_KEY_S)) {
-			movePlayerBack(delta_time, 5.0f);
+			movePlayerBack(delta_time, velocity);
 		}
 		if (Input::keyHold(GLFW_KEY_A)) {
-			movePlayerLeft(delta_time, 5.0f);
+			movePlayerLeft(delta_time, velocity);
 		}
 		if (Input::keyHold(GLFW_KEY_D)) {
-			movePlayerRight(delta_time, 5.0f);
+			movePlayerRight(delta_time, velocity);
 		}
 		if (Input::keyHold(GLFW_KEY_SPACE)) {
-			movePlayerUp(delta_time, 5.0f);
+			movePlayerUp(delta_time, velocity);
 		}
 		if (Input::keyHold(GLFW_KEY_LEFT_SHIFT)) {
-			movePlayerDown(delta_time, 5.0f);
+			movePlayerDown(delta_time, velocity);
 		}
 		if (Input::keyPress(GLFW_KEY_F)) {
 			std::cout << player->getPos().x << " " << player->getPos().y << " " << player->getPos().z << "\n";

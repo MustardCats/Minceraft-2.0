@@ -95,7 +95,7 @@ namespace Renderer {
 		glm::mat4 ortho = glm::ortho(0.0f, (float)(Window::getSize().x), (float)(Window::getSize().y), 0.0f);
 		basic_shader->setMat4("MVP", ortho);
 		Mesh cat;
-		cat.AddRect(glm::vec2(0.0f, 0.0f), glm::vec2(300.0f, 300.0f), glm::vec2(0.0f, 0.0f), glm::vec2(1.0f, 1.0f));
+		cat.AddRect(glm::vec2(0.0f, 0.0f), glm::vec2(300.0f, 300.0f), glm::vec2(0.0f, 0.0f), glm::vec2(0.125f, 0.125f));
 		cat.GenVAO();
 		cat.Render();
 	}
