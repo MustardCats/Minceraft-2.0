@@ -2,9 +2,9 @@
 
 #include "Include.h"
 
-constexpr short c_length = 32; // x
-constexpr short c_height = 32; // y
-constexpr short c_width = 32; // z
+constexpr short c_length = 16; // x
+constexpr short c_height = 256; // y
+constexpr short c_width = 16; // z
 
 struct Block {
 	int id = 0;
@@ -50,6 +50,7 @@ struct Chunk {
 namespace ChunkManager {
 	bool init();
 	void update();
+	void makeLimitedChunkNear(glm::vec3 pos);
 	void makeChunkNear(glm::vec3 pos);
 	Chunk* getNewChunk();
 	glm::ivec3 posToChunk(glm::ivec3 pos);

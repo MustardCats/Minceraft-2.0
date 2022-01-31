@@ -18,9 +18,9 @@ public:
 	void clear();
 	Mesh* getMesh();
 	bool isGenerated();
+	void findAdjacentChunks();
 private:
 	void createCubeMesh(std::vector<GLfloat>* vertices, int x, int y, int z);
-	void findAdjacentChunks();
 
 	Chunk* chunk;
 	Chunk* adj_chunks[6];

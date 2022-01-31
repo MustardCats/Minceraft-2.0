@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -17,6 +18,7 @@
 #include <unordered_map>
 #include <filesystem>
 #include <sstream>
+#include <iterator>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -30,4 +32,5 @@
 #include "SFML/Graphics.hpp"
 
 #include "FastNoiseLite.h"
-// TODO: get robinhood for unordered map
+
+#include "robin_hood.h"

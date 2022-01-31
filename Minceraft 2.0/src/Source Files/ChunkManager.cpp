@@ -10,11 +10,13 @@ namespace ChunkManager {
 	static short range_x;
 	static short range_y;
 	static short range_z;
+	static bool limited_height;
 
 	bool init() {
 		range_x = 13;
 		range_y = 3;
 		range_z = 13;
+		limited_height = true;
 
 		//height_noise.SetNoiseType(FastNoiseLite::NoiseType::NoiseType_Perlin);
 
@@ -25,7 +27,7 @@ namespace ChunkManager {
 		std::array<std::array<int, c_width>, c_length> height_map = std::array<std::array<int, c_width>, c_length>();
 		for (int x = 0; x < c_length; x++) {
 			for (int z = 0; z < c_width; z++) {
-				height_map[x][z] = (int)(height_noise.GetNoise((float)chunk_x * c_length + x, (float)chunk_z * c_width + z) * 10.0f);
+				height_map[x][z] = (int)(height_noise.GetNoise((float)chunk_x * c_length + x, (float)chunk_z * c_width + z) * 20.0f + 20.0f);
 			}
 		}
 		
@@ -66,7 +68,34 @@ namespace ChunkManager {
 		}
 	}
 
+	void makeLimitedChunkNear(glm::vec3 pos) {
+		bool found = false;
+		glm::vec3 chunk_pos = posToChunk(pos);
+		for (int x = (chunk_pos.x - (range_x / 2)); x <= (chunk_pos.x + (range_x / 2)); x++) {
+			for (int z = (chunk_pos.z - (range_z / 2)); z <= (chunk_pos.z + (range_z / 2)); z++) {
+				found = false;
+				for (auto chunk : generating_chunks) {
+					if (chunk->x == x && chunk->z == z)
+						found = true;
+				}
+				if (found)
+					continue;
+				for (auto chunk : chunks) {
+					if (chunk->x == x && chunk->z == z)
+						found = true;
+				}
+				if (found)
+					continue;
+				generating_chunks.push_back(new Chunk(x, 0, z));
+			}
+		}
+	}
+
 	void makeChunkNear(glm::vec3 pos) {
+		if (limited_height) {
+			makeLimitedChunkNear(pos);
+			return;
+		}
 		bool found = false;
 		glm::vec3 chunk_pos = posToChunk(pos);
 		for (int x = (chunk_pos.x - (range_x / 2)); x <= (chunk_pos.x + (range_x / 2)); x++) {

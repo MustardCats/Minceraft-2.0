@@ -11,7 +11,7 @@ public:
 	glm::vec3 getVelocity();
 protected:
 	void checkCollision();
-	glm::vec3 pos;;
+	glm::dvec3 pos;;
 	glm::vec3 size;
 	glm::vec3 velocity;
 	glm::vec3 direction;

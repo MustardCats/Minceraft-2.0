@@ -7,6 +7,7 @@ ChunkMesh::ChunkMesh(Chunk* chunk) {
 	for (int i = 0; i < 6; i++) {
 		adj_chunks[i] = nullptr;
 	}
+	findAdjacentChunks();
 	is_generated = false;
 	cur_generating_y = 0;
 }
@@ -18,7 +19,6 @@ ChunkMesh::~ChunkMesh() {
 bool ChunkMesh::generate(int num_rows) {
 	is_generated = false;
 	std::vector<GLfloat>* vertices = mesh->GetMesh();
-	findAdjacentChunks();
 	for (int x = 0; x < c_length; x++) {
 		for (int y = cur_generating_y; y < cur_generating_y + num_rows; y++) {
 			for (int z = 0; z < c_width; z++) {
@@ -37,6 +37,7 @@ bool ChunkMesh::generate(int num_rows) {
 		is_generated = true;
 		return true;
 	}
+
 	return false;
 }
 

@@ -1,11 +1,62 @@
 #include "../Header Files/Shader.h"
 
+struct ProgramUniformPair {
+    ProgramUniformPair(GLuint program_id, std::string uniform_name) {
+        this->program_id = program_id;
+        this->uniform_name = uniform_name;
+    }
+    GLuint program_id;
+    std::string uniform_name;
+    bool operator==(const ProgramUniformPair& other) const {
+        return this->program_id == other.program_id &&
+            this->uniform_name == other.uniform_name;
+    }
+};
+
+struct HashUniform {
+    std::size_t operator() (const ProgramUniformPair& key) const {
+        return (std::hash<std::string>()(key.uniform_name) ^ std::hash<GLuint>()(key.program_id));
+    }
+};
+
+static robin_hood::unordered_map < ProgramUniformPair, GLuint, HashUniform > uniform_locations =
+robin_hood::unordered_map<ProgramUniformPair, GLuint, HashUniform>();
+
 Shader::Shader() {
 	ID = 0;
 }
 
 Shader::~Shader() {
 	glDeleteProgram(ID);
+}
+/*
+* https://www.youtube.com/watch?v=yrFo1_Izlk0&t=15s
+*/
+void Shader::addUniformLocations(GLuint shader_id) {
+    int num_uniforms;
+    glGetProgramiv(shader_id, GL_ACTIVE_UNIFORMS, &num_uniforms);
+
+    int max_char_length;
+    glGetProgramiv(shader_id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_char_length);
+    if (num_uniforms > 0 && max_char_length > 0) {
+        char* char_buffer = (char*)malloc(sizeof(char) * max_char_length);
+        for (int i = 0; i < num_uniforms; i++) {
+            int length, size;
+            GLenum data_type;
+            glGetActiveUniform(shader_id, i, max_char_length, &length, &size, &data_type, char_buffer);
+            GLint uniform_location = glGetUniformLocation(shader_id, char_buffer);
+            std::string uniform_name(char_buffer);
+            ProgramUniformPair pair = { shader_id, uniform_name };
+            uniform_locations[pair] = uniform_location;
+            std::cout << "Found uniform location for shader " << shader_id << " and name "
+                << uniform_name << " at " << uniform_location << "\n";
+        }
+        free(char_buffer);
+    }
+}
+
+GLuint Shader::getUniformLocation(GLuint shader_id, std::string) {
+    return GLuint();
 }
 
 Shader::Shader(std::string vertex_path, std::string frag_path) {
@@ -66,6 +117,8 @@ bool Shader::load(std::string vertex_path, std::string frag_path) {
     // delete the shaders as they're linked into our program now and no longer necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
+
+    addUniformLocations(ID);
 
 	return true;
 }
@@ -153,5 +206,5 @@ void Shader::setMat3(const std::string& name, const glm::mat3& mat) const
 
 void Shader::setMat4(const std::string& name, const glm::mat4& mat) const
 {
-    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+    glUniformMatrix4fv(uniform_locations[{ID, name}], 1, GL_FALSE, & mat[0][0]);
 }

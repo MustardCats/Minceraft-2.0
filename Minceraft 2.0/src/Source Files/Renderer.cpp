@@ -97,6 +97,6 @@ namespace Renderer {
 		Mesh cat;
 		cat.AddRect(glm::vec2(0.0f, 0.0f), glm::vec2(300.0f, 300.0f), glm::vec2(0.0f, 0.0f), glm::vec2(0.125f, 0.125f));
 		cat.GenVAO();
-		cat.Render();
+		//cat.Render();
 	}
 }

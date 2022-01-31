@@ -23,5 +23,9 @@ public:
 	void setMat4(const std::string& name, const glm::mat4& mat) const;
 private:
 	bool checkCompileErrors(unsigned int shader, std::string type);
-	int ID;
+	GLuint ID;
+
+	static void addUniformLocations(GLuint shader_id);
+	static GLuint getUniformLocation(GLuint shader_id, std::string);
+	
 };

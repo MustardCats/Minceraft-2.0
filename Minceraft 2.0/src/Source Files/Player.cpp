@@ -3,7 +3,7 @@
 Player::Player() {
 	size.y = 2.0f;
 	pos.x = 0;
-	pos.y = 0;
+	pos.y = 50;
 	pos.z = 0;
 }
 

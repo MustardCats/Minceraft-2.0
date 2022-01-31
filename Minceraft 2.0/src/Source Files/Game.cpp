@@ -72,6 +72,7 @@ namespace Game {
 		}
 
 		ChunkManager::update();
+
 		while (ChunkManager::containsDeleteChunks())
 			ChunkRenderer::removeMesh(ChunkManager::getDeleteChunk());
 		
