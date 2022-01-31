@@ -7,7 +7,7 @@ namespace ChunkRenderer {
 
 	void update() {
 		static int frame = 0;
-		int num_rows = c_height / 4;
+		int num_rows = c_height;
 		if (generating_chunk_meshes.size() > 0 && frame == 0) {
 			if (generating_chunk_meshes.at(0)->generate(num_rows)) {
 				chunk_meshes.push_back(generating_chunk_meshes.at(0));
@@ -71,7 +71,6 @@ namespace ChunkRenderer {
 			if (generating_chunk_meshes.at(i)->pos() == pos) {
 				generating_chunk_meshes.at(i)->findAdjacentChunks();
 				if (i == 0) {
-					std::cout << "resetting generating chunk mesh " << pos.x << " " << pos.y << " " << pos.z << "\n";
 					generating_chunk_meshes.at(i)->clear();
 				}
 			}

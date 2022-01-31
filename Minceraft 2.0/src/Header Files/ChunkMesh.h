@@ -20,8 +20,6 @@ public:
 	bool isGenerated();
 	void findAdjacentChunks();
 private:
-	void createCubeMesh(std::vector<GLfloat>* vertices, int x, int y, int z);
-
 	Chunk* chunk;
 	Chunk* adj_chunks[6];
 	Mesh* mesh;

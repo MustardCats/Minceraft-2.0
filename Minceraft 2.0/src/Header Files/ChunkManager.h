@@ -7,7 +7,7 @@ constexpr short c_height = 256; // y
 constexpr short c_width = 16; // z
 
 struct Block {
-	int id = 0;
+	short id = 0;
 	short sun_light = 0;
 	short other_light = 0;
 };
