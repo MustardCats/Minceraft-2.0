@@ -1,11 +1,5 @@
-dirt
-grass
-grass_top
-leaf
-pickaxe
-sand
-sandstone_side
-sandstone_top
+crimson_nylium
+crimson_nylium_side
+netherrack
 stone
-water
-wood
+slot

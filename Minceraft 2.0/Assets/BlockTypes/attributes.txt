@@ -1,6 +1,6 @@
-gravel
+netherrack
 id 1
-drops gravel
+drops netherrack
 solid 1
 harvest 1
 tool shovel
@@ -14,34 +14,11 @@ harvest 2
 tool pickaxe
 toughness 10
 ;
-dirt
+nylium
 id 3
-drops dirt
+drops nylium
 solid 1
 harvest 1
 tool shovel
 toughness 2
-;
-grass
-id 4
-drops dirt
-solid 1
-harvest 1
-tool shovel
-toughness 3
-;
-wood_planks
-id 5
-drops wood_planks
-solid 1
-harvest 1
-tool axe
-toughness 5
-;
-smooth_stone
-id 6
-solid 2
-harvest 1
-tool pickaxe
-toughness 1
 ;
